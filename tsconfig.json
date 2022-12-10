@@ -14,9 +14,12 @@
 		"isolatedModules": true,
 		"jsx": "preserve",
 		"incremental": true,
+		"rootDir": ".",
+		"baseUrl": ".",
 		"paths": {
 			"@components": ["./components"],
 			"@modules": ["./modules"],
+			"@services": ["./services"],
 			"@utils": ["./utils"]
 		}
 	},

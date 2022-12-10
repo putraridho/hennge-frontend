@@ -1,0 +1,240 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "Api documentation",
+		"version": "1.0.0"
+	},
+	"paths": {
+		"/api/mail": {
+			"get": {
+				"operationId": "mailsControllerGetAll",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/MailModel"
+									}
+								}
+							}
+						},
+						"description": "Success"
+					}
+				},
+				"parameters": [
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "size",
+						"required": false,
+						"schema": {
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "sort",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "sortBy",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "from",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "to",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["MailsController"]
+			}
+		},
+		"/api/user": {
+			"get": {
+				"operationId": "usersControllerGetAllUsers",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/UserModel"
+									}
+								}
+							}
+						},
+						"description": "Success"
+					}
+				},
+				"parameters": [],
+				"tags": ["UsersController"]
+			}
+		},
+		"/api/user/{id}": {
+			"get": {
+				"operationId": "usersControllerGetUser",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserModel"
+								}
+							}
+						},
+						"description": "Success"
+					}
+				},
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"tags": ["UsersController"]
+			}
+		}
+	},
+	"tags": [
+		{
+			"name": "MailsController"
+		},
+		{
+			"name": "UsersController"
+		}
+	],
+	"components": {
+		"schemas": {
+			"MailModel": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"minLength": 1
+					},
+					"subject": {
+						"type": "string",
+						"nullable": true,
+						"minLength": 1
+					},
+					"attachment": {
+						"type": "boolean",
+						"nullable": true
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"minLength": 1
+					},
+					"to": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/UserModel"
+						}
+					},
+					"from": {
+						"nullable": true,
+						"oneOf": [
+							{
+								"$ref": "#/components/schemas/SentMailModel"
+							}
+						]
+					}
+				},
+				"required": ["id", "subject", "attachment", "createdAt", "to", "from"]
+			},
+			"UserModel": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string",
+						"minLength": 1
+					},
+					"email": {
+						"type": "string",
+						"minLength": 1
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"minLength": 1
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time",
+						"minLength": 1
+					},
+					"sent": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/SentMailModel"
+						}
+					},
+					"inbox": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/MailModel"
+						}
+					}
+				},
+				"required": ["id", "email", "createdAt", "updatedAt", "sent", "inbox"]
+			},
+			"SentMailModel": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number",
+						"multipleOf": 1
+					},
+					"user": {
+						"$ref": "#/components/schemas/UserModel"
+					},
+					"userId": {
+						"type": "string",
+						"minLength": 1
+					},
+					"mail": {
+						"$ref": "#/components/schemas/MailModel"
+					},
+					"mailId": {
+						"type": "string",
+						"minLength": 1
+					}
+				},
+				"required": ["id", "user", "userId", "mail", "mailId"]
+			}
+		}
+	}
+}

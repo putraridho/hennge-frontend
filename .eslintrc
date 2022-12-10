@@ -14,6 +14,7 @@
 	"ignorePatterns": ["node_modules/*", ".next/*", ".out/*", "!.prettierrc", "services/*"],
 	"extends": ["airbnb", "next/core-web-vitals"],
 	"rules": {
+		"no-unused-vars": [2, { "argsIgnorePattern": "^_" }],
 		"function-paren-newline": 0,
 		"implicit-arrow-linebreak": 0,
 		"indent": 0,
