@@ -1,6 +1,6 @@
 import { UserModel, UsersControllerService } from "@services";
+import { QueryOptions, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { QueryOptions, useQuery } from "react-query";
 
 async function getUsers() {
 	return UsersControllerService.usersControllerGetAllUsers();
@@ -15,7 +15,7 @@ async function getUser(params?: GetUserParams) {
 }
 
 export function useGetUsers(options?: QueryOptions<UserModel[], AxiosError, UserModel[]>) {
-	return useQuery("get users", getUsers, options);
+	return useQuery(["get users"], getUsers, options);
 }
 
 export function useGetUser(

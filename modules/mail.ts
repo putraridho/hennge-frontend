@@ -1,6 +1,6 @@
 import { GetAllMailsRes, MailsControllerService } from "@services";
+import { useQuery, UseQueryOptions } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { useQuery, UseQueryOptions } from "react-query";
 
 interface GetMailsParams {
 	page?: number | undefined;

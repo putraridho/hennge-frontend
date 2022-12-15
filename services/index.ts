@@ -177,7 +177,7 @@ export interface GetAllMailsRes {
   page?: number;
 
   /**  */
-  length?: number;
+  total?: number;
 
   /**  */
   data: MailModel[];
